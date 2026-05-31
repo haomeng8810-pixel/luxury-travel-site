@@ -1,8 +1,10 @@
+import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { Prisma } from '@prisma/client';
 
 // ============================================
-// Admin Inquiries - List
+// Admin Inquiries - List with Search & Filter
 // ============================================
 
 const statusLabels: Record<string, string> = {
@@ -43,17 +45,110 @@ async function deleteInquiry(formData: FormData) {
   revalidatePath('/admin/inquiries');
 }
 
-export default async function AdminInquiriesPage() {
-  const inquiries = await prisma.inquiry.findMany({
-    orderBy: { createdAt: 'desc' },
-  });
+export default async function AdminInquiriesPage({
+  searchParams,
+}: {
+  searchParams: { search?: string; status?: string; travelerType?: string };
+}) {
+  const { search, status, travelerType } = searchParams;
+
+  const where: Prisma.InquiryWhereInput = {};
+
+  if (search) {
+    where.OR = [
+      { firstName: { contains: search, mode: 'insensitive' } },
+      { lastName: { contains: search, mode: 'insensitive' } },
+      { email: { contains: search, mode: 'insensitive' } },
+      { destination: { contains: search, mode: 'insensitive' } },
+    ];
+  }
+
+  if (status) {
+    where.status = status as any;
+  }
+
+  if (travelerType) {
+    where.travelerType = travelerType;
+  }
+
+  const [inquiries, stats] = await Promise.all([
+    prisma.inquiry.findMany({
+      where,
+      orderBy: { createdAt: 'desc' },
+    }),
+    prisma.inquiry.groupBy({
+      by: ['status'],
+      _count: true,
+    }),
+  ]);
 
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">咨询管理</h1>
-        <span className="text-sm text-gray-500">共 {inquiries.length} 条咨询</span>
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">咨询管理</h1>
+          <p className="text-sm text-gray-500 mt-1">
+            共 {inquiries.length} 条咨询
+          </p>
+        </div>
       </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-4 md:grid-cols-7 gap-3 mb-6">
+        {Object.entries(statusLabels).map(([key, label]) => {
+          const count = stats.find(s => s.status === key)?._count || 0;
+          return (
+            <div key={key} className="bg-white rounded-lg shadow-sm p-3 text-center">
+              <p className="text-2xl font-bold">{count}</p>
+              <p className={`text-xs mt-1 px-2 py-0.5 rounded-full inline-block ${statusColors[key]}`}>
+                {label}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Search & Filter Bar */}
+      <form className="bg-white rounded-lg shadow-sm p-4 mb-6">
+        <div className="flex flex-wrap gap-4 items-end">
+          <div className="flex-1 min-w-[200px]">
+            <label className="block text-sm font-medium text-gray-700 mb-1">搜索</label>
+            <input
+              name="search"
+              defaultValue={search}
+              placeholder="搜索客户姓名、邮箱、目的地..."
+              className="w-full border rounded-lg px-3 py-2 text-sm"
+            />
+          </div>
+          <div className="min-w-[120px]">
+            <label className="block text-sm font-medium text-gray-700 mb-1">状态</label>
+            <select name="status" defaultValue={status} className="w-full border rounded-lg px-3 py-2 text-sm">
+              <option value="">全部状态</option>
+              {Object.entries(statusLabels).map(([key, label]) => (
+                <option key={key} value={key}>{label}</option>
+              ))}
+            </select>
+          </div>
+          <div className="min-w-[120px]">
+            <label className="block text-sm font-medium text-gray-700 mb-1">出行类型</label>
+            <select name="travelerType" defaultValue={travelerType} className="w-full border rounded-lg px-3 py-2 text-sm">
+              <option value="">全部类型</option>
+              <option value="Couple">情侣</option>
+              <option value="Family">家庭</option>
+              <option value="Solo">单人</option>
+              <option value="Friends">朋友</option>
+            </select>
+          </div>
+          <button type="submit" className="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg text-sm transition-colors">
+            筛选
+          </button>
+          {(search || status || travelerType) && (
+            <Link href="/admin/inquiries" className="text-sm text-blue-600 hover:underline">
+              清除筛选
+            </Link>
+          )}
+        </div>
+      </form>
 
       {inquiries.length === 0 ? (
         <div className="bg-white rounded-lg shadow-sm p-8 text-center">
@@ -66,7 +161,7 @@ export default async function AdminInquiriesPage() {
               <tr>
                 <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">客户</th>
                 <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">联系方式</th>
-                <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">留言</th>
+                <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">需求</th>
                 <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">状态</th>
                 <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">日期</th>
                 <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">操作</th>
@@ -76,18 +171,32 @@ export default async function AdminInquiriesPage() {
               {inquiries.map((inq) => (
                 <tr key={inq.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4">
-                    <p className="font-medium">{inq.name}</p>
-                    {inq.guests && <p className="text-sm text-gray-500">{inq.guests}人</p>}
-                    {inq.budget && <p className="text-sm text-gray-500">预算: ¥{inq.budget.toLocaleString()}</p>}
+                    <p className="font-medium">{inq.firstName}{inq.lastName}</p>
+                    {inq.travelerType && (
+                      <p className="text-xs text-gray-500 mt-1">
+                        {inq.travelerType === 'Couple' ? '👫 情侣' :
+                         inq.travelerType === 'Family' ? '👨‍👩‍👧‍👦 家庭' :
+                         inq.travelerType === 'Solo' ? '🧑 单人' : '👬 朋友'}
+                        {inq.travelers ? ` · ${inq.travelers}人` : ''}
+                      </p>
+                    )}
+                    {inq.budget && (
+                      <p className="text-xs text-gray-500">预算: {inq.budget}</p>
+                    )}
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-600">
                     <p>{inq.email}</p>
-                    <p>{inq.phone}</p>
+                    {inq.phone && <p>{inq.phone}</p>}
                   </td>
                   <td className="px-6 py-4">
-                    <p className="text-sm text-gray-600 max-w-xs truncate" title={inq.message || ''}>
-                      {inq.message || '-'}
-                    </p>
+                    {inq.destination && (
+                      <p className="text-sm text-gray-600">📍 {inq.destination}</p>
+                    )}
+                    {inq.notes && (
+                      <p className="text-sm text-gray-500 max-w-xs truncate" title={inq.notes}>
+                        {inq.notes}
+                      </p>
+                    )}
                   </td>
                   <td className="px-6 py-4">
                     <form action={updateStatus} className="inline">
