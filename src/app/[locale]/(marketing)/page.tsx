@@ -28,7 +28,7 @@ async function getFeaturedTrips() {
     },
   });
 
-  return trips.map((trip) => ({
+  return trips.map((trip: any) => ({
     id: trip.id,
     slug: trip.slug,
     title: trip.title,
@@ -62,7 +62,7 @@ async function getDestinations() {
     },
   });
 
-  return destinations.map((dest) => ({
+  return destinations.map((dest: any) => ({
     id: dest.id,
     slug: dest.slug,
     name: dest.name,
@@ -80,7 +80,7 @@ async function getEmotions() {
     orderBy: { sortOrder: 'asc' },
   });
 
-  return emotions.map((emo) => ({
+  return emotions.map((emo: any) => ({
     id: emo.id,
     name: emo.name,
     nameCn: emo.nameCn,
@@ -99,7 +99,7 @@ async function getTestimonials() {
     take: 5,
   });
 
-  return reviews.map((review) => ({
+  return reviews.map((review: any) => ({
     id: review.id,
     customerName: review.customerName,
     location: review.location,
@@ -127,7 +127,7 @@ async function getLatestStories() {
   ]);
 
   return {
-    articles: articles.map((a) => ({
+    articles: articles.map((a: any) => ({
       id: a.id,
       slug: a.slug,
       type: a.type,
@@ -136,7 +136,7 @@ async function getLatestStories() {
       readTime: a.readTime || 5,
       publishedAt: a.publishedAt || a.createdAt,
     })),
-    podcasts: podcasts.map((p) => ({
+    podcasts: podcasts.map((p: any) => ({
       id: p.id,
       slug: p.slug,
       type: 'PODCAST' as const,
