@@ -1,78 +1,132 @@
-import Link from 'next/link';
+import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
-const MOCK_INQUIRIES = [
-  { id: '1', firstName: '蒙', lastName: '郝', email: 'haomeng@example.com', phone: '138****1234', destination: '东京·京都', budget: 30000, status: 'NEW', date: '2026-05-30' },
-  { id: '2', firstName: '三', lastName: '张', email: 'zhangsan@example.com', phone: '139****5678', destination: '北海道', budget: 25000, status: 'CONTACTED', date: '2026-05-29' },
-  { id: '3', firstName: '四', lastName: '李', email: 'lisi@example.com', phone: '136****9012', destination: '冲绳', budget: 15000, status: 'IN_PROGRESS', date: '2026-05-28' },
-  { id: '4', firstName: '五', lastName: '王', email: 'wangwu@example.com', phone: '137****3456', destination: '大阪', budget: 20000, status: 'QUOTED', date: '2026-05-27' },
-  { id: '5', firstName: '六', lastName: '赵', email: 'zhaoliu@example.com', phone: '135****7890', destination: '东京·京都', budget: 40000, status: 'BOOKED', date: '2026-05-26' },
-  { id: '6', firstName: '七', lastName: '钱', email: 'qianqi@example.com', phone: '133****2345', destination: '京都', budget: 35000, status: 'CLOSED', date: '2026-05-25' },
-];
+// ============================================
+// Admin Inquiries - List
+// ============================================
 
 const statusLabels: Record<string, string> = {
-  NEW: '新咨询', CONTACTED: '已联系', IN_PROGRESS: '处理中',
-  QUOTED: '已报价', BOOKED: '已预订', CLOSED: '已关闭', LOST: '已流失',
+  NEW: '新咨询',
+  CONTACTED: '已联系',
+  IN_PROGRESS: '处理中',
+  QUOTED: '已报价',
+  BOOKED: '已预订',
+  CLOSED: '已关闭',
+  LOST: '已流失',
 };
 
 const statusColors: Record<string, string> = {
-  NEW: 'bg-yellow-100 text-yellow-800', CONTACTED: 'bg-blue-100 text-blue-800',
-  IN_PROGRESS: 'bg-blue-100 text-blue-800', QUOTED: 'bg-purple-100 text-purple-800',
-  BOOKED: 'bg-green-100 text-green-800', CLOSED: 'bg-gray-100 text-gray-800',
+  NEW: 'bg-yellow-100 text-yellow-800',
+  CONTACTED: 'bg-blue-100 text-blue-800',
+  IN_PROGRESS: 'bg-blue-100 text-blue-800',
+  QUOTED: 'bg-purple-100 text-purple-800',
+  BOOKED: 'bg-green-100 text-green-800',
+  CLOSED: 'bg-gray-100 text-gray-800',
   LOST: 'bg-red-100 text-red-800',
 };
 
+async function updateStatus(formData: FormData) {
+  'use server';
+  const id = formData.get('id') as string;
+  const status = formData.get('status') as string;
+  await prisma.inquiry.update({
+    where: { id },
+    data: { status: status as any },
+  });
+  revalidatePath('/admin/inquiries');
+}
+
+async function deleteInquiry(formData: FormData) {
+  'use server';
+  const id = formData.get('id') as string;
+  await prisma.inquiry.delete({ where: { id } });
+  revalidatePath('/admin/inquiries');
+}
+
 export default async function AdminInquiriesPage() {
+  const inquiries = await prisma.inquiry.findMany({
+    orderBy: { createdAt: 'desc' },
+  });
+
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">咨询管理</h1>
-
-      {/* 筛选器 */}
-      <div className="mb-6 flex space-x-4">
-        <select className="px-4 py-2 border border-gray-300 rounded">
-          <option value="">所有状态</option>
-          {Object.entries(statusLabels).map(([k, v]) => (
-            <option key={k} value={k}>{v}</option>
-          ))}
-        </select>
-        <input type="text" placeholder="搜索客户姓名或邮箱..." className="px-4 py-2 border border-gray-300 rounded flex-1" />
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold text-gray-900">咨询管理</h1>
+        <span className="text-sm text-gray-500">共 {inquiries.length} 条咨询</span>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">客户信息</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">目的地</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">预算</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">状态</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">创建时间</th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">操作</th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {MOCK_INQUIRIES.map((inq) => (
-              <tr key={inq.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4">
-                  <div className="font-medium text-gray-900">{inq.firstName}{inq.lastName}</div>
-                  <div className="text-sm text-gray-500">{inq.email}</div>
-                  <div className="text-sm text-gray-500">{inq.phone}</div>
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500">{inq.destination}</td>
-                <td className="px-6 py-4 text-sm text-gray-500">¥{inq.budget.toLocaleString()}</td>
-                <td className="px-6 py-4">
-                  <span className={`px-2 inline-flex text-xs rounded-full ${statusColors[inq.status]}`}>
-                    {statusLabels[inq.status]}
-                  </span>
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500">{inq.date}</td>
-                <td className="px-6 py-4 text-right text-sm font-medium">
-                  <Link href={`/admin/inquiries/${inq.id}`} className="text-blue-600 hover:text-blue-900">查看</Link>
-                </td>
+      {inquiries.length === 0 ? (
+        <div className="bg-white rounded-lg shadow-sm p-8 text-center">
+          <p className="text-gray-400">暂无咨询记录</p>
+        </div>
+      ) : (
+        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+          <table className="w-full">
+            <thead className="bg-gray-50 border-b">
+              <tr>
+                <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">客户</th>
+                <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">联系方式</th>
+                <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">留言</th>
+                <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">状态</th>
+                <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">日期</th>
+                <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">操作</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody className="divide-y">
+              {inquiries.map((inq) => (
+                <tr key={inq.id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4">
+                    <p className="font-medium">{inq.name}</p>
+                    {inq.guests && <p className="text-sm text-gray-500">{inq.guests}人</p>}
+                    {inq.budget && <p className="text-sm text-gray-500">预算: ¥{inq.budget.toLocaleString()}</p>}
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-600">
+                    <p>{inq.email}</p>
+                    <p>{inq.phone}</p>
+                  </td>
+                  <td className="px-6 py-4">
+                    <p className="text-sm text-gray-600 max-w-xs truncate" title={inq.message || ''}>
+                      {inq.message || '-'}
+                    </p>
+                  </td>
+                  <td className="px-6 py-4">
+                    <form action={updateStatus} className="inline">
+                      <input type="hidden" name="id" value={inq.id} />
+                      <select
+                        name="status"
+                        defaultValue={inq.status}
+                        className={`px-2 py-1 text-xs rounded-full border-0 cursor-pointer ${statusColors[inq.status]}`}
+                        onChange={(e) => e.target.form?.requestSubmit()}
+                      >
+                        {Object.entries(statusLabels).map(([key, label]) => (
+                          <option key={key} value={key}>{label}</option>
+                        ))}
+                      </select>
+                    </form>
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-500">
+                    {new Date(inq.createdAt).toLocaleDateString('zh-CN')}
+                  </td>
+                  <td className="px-6 py-4">
+                    <form action={deleteInquiry} className="inline">
+                      <input type="hidden" name="id" value={inq.id} />
+                      <button
+                        type="submit"
+                        className="text-red-600 hover:text-red-800 text-sm"
+                        onClick={(e) => {
+                          if (!confirm('确定删除此咨询？')) e.preventDefault();
+                        }}
+                      >
+                        删除
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }
