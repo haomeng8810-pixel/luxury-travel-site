@@ -8,8 +8,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 // ============================================
@@ -296,7 +296,6 @@ model User {
   name            String?
   phone           String?
   role            UserRole @default(CUSTOMER)
-  inquiries       Inquiry[]
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   
@@ -310,8 +309,8 @@ model User {
 /// SEO 元数据
 model Seo {
   id              String   @id @default(cuid())
-  destinationId   String?
-  tripId          String?
+  destinationId   String?  @unique
+  tripId          String?  @unique
   pageSlug        String   @unique                    // 页面路径
   
   title           String                              // SEO 标题
