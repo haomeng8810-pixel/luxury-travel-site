@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APPLE TRAVEL 苹果旅行 | 日本高端定制旅行专家</title>
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #1a1a1a;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 20px 0;
+        }
+        .hero {
+            background-image: url('https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=1200&h=800&fit=crop');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+        }
+        .section {
+            padding: 60px 0;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+        }
+        .trips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .trip-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .trip-card:hover {
+            transform: translateY(-5px);
+        }
+        .trip-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .trip-info {
+            padding: 20px;
+        }
+        .trip-title {
+            font-family: 'Playfair Display', serif;
+            margin: 0 0 10px 0;
+            font-size: 1.3rem;
+        }
+        .trip-subtitle {
+            color: #666;
+            margin: 0 0 15px 0;
+        }
+        .trip-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        .footer {
+            background-color: #f8f8f8;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+        .brand-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .taglines {
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .accent {
+            color: #c9a96e;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h2>APPLE TRAVEL 苹果旅行</h2>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div>
+            <h1>将奢华、惬意的时光，献给你。</h1>
+            <p>贅沢な時間を、あなたに。</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <h2 class="section-title">精选日本行程</h2>
+            <div class="trips-grid">
+                <div class="trip-card">
+                    <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800&h=600&fit=crop" alt="Tokyo & Kyoto" class="trip-image">
+                    <div class="trip-info">
+                        <h3 class="trip-title">东京京都经典之旅</h3>
+                        <p class="trip-subtitle">Experience the perfect blend of modern and traditional Japan</p>
+                        <div class="trip-meta">
+                            <span>7天</span>
+                            <span class="accent">¥50,000起</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="trip-card">
+                    <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=800&h=600&fit=crop" alt="Hokkaido" class="trip-image">
+                    <div class="trip-info">
+                        <h3 class="trip-title">北海道冬日仙境</h3>
+                        <p class="trip-subtitle">Powder snow, hot springs, and breathtaking landscapes</p>
+                        <div class="trip-meta">
+                            <span>8天</span>
+                            <span class="accent">¥65,000起</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="trip-card">
+                    <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop" alt="Okinawa" class="trip-image">
+                    <div class="trip-info">
+                        <h3 class="trip-title">冲绳跳岛之旅</h3>
+                        <p class="trip-subtitle">Crystal clear waters, white sand beaches, and vibrant culture</p>
+                        <div class="trip-meta">
+                            <span>6天</span>
+                            <span class="accent">¥45,000起</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <h2 class="section-title">为什么选择我们</h2>
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <p>20+ 年日本旅行专家经验</p>
+                <p>100+ 精选日本目的地</p>
+                <p>一对一专属旅行顾问</p>
+                <p>独家资源与体验</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="brand-info">
+                <h3>APPLE TRAVEL 苹果旅行</h3>
+                <p>日本高端定制旅行专家</p>
+            </div>
+            <div class="taglines">
+                <p>贅沢な時間を、あなたに。</p>
+                <p>将奢华、惬意的时光，献给你。</p>
+                <p>专注日本高端定制旅行体验。</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

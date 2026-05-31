@@ -1,0 +1,394 @@
+{
+  "nav": {
+    "home": "首页",
+    "trips": "精选行程",
+    "destinations": "目的地",
+    "stories": "灵感故事",
+    "feelings": "情感体验",
+    "about": "关于我们",
+    "contact": "联系我们",
+    "switchLanguage": "切换语言"
+  },
+  "home": {
+    "hero": {
+      "preTitle": "高端定制旅行",
+      "title": "开启您的专属旅程",
+      "subtitle": "从繁华都市到隐秘乡野，我们为您打造独一无二的旅行体验",
+      "cta": "探索行程",
+      "ctaSecondary": "立即咨询"
+    },
+    "featuredTrips": {
+      "sectionTitle": "精选行程",
+      "sectionSubtitle": "每一段旅程，都是独一无二的体验",
+      "viewAll": "查看全部"
+    },
+    "feelings": {
+      "sectionTitle": "情感体验",
+      "sectionSubtitle": "你想在旅行中找到什么感觉？",
+      "learnMore": "了解更多"
+    },
+    "stories": {
+      "sectionTitle": "灵感故事",
+      "sectionSubtitle": "来自真实旅行者的故事与灵感",
+      "viewAll": "查看全部"
+    },
+    "testimonials": {
+      "sectionTitle": "客户评价",
+      "sectionSubtitle": "听听他们怎么说"
+    },
+    "podcasts": {
+      "sectionTitle": "旅行播客",
+      "sectionSubtitle": "聆听专业旅行达人的建议",
+      "listen": "收听"
+    },
+    "cta": {
+      "title": "准备好开启您的旅程了吗？",
+      "subtitle": "我们的旅行专家将在 24 小时内与您联系",
+      "button": "开始定制"
+    }
+  },
+  "trips": {
+    "title": "精选行程",
+    "subtitle": "每一段旅程，都是独一无二的体验",
+    "filters": {
+      "all": "全部情感",
+      "byContinent": "按大洲筛选",
+      "allContinents": "全部"
+    },
+    "noResults": "暂无符合条件的行程",
+    "inquire": "立即咨询",
+    "priceFrom": "¥{price} 起",
+    "duration": "{days} 天 {nights} 晚",
+    "exclusive": "限定",
+    "featured": "精选"
+  },
+  "destinations": {
+    "title": "探索目的地",
+    "subtitle": "覆盖全球 100+ 目的地，找到您的下一站",
+    "noData": "暂无目的地数据",
+    "continent": "按大洲筛选",
+    "all": "全部",
+    "continents": {
+      "Asia": "亚洲",
+      "Europe": "欧洲",
+      "North America": "北美洲",
+      "Oceania": "大洋洲",
+      "Africa": "非洲",
+      "South America": "南美洲",
+      "asia": "亚洲"
+    },
+    "viewAll": "查看全部目的地",
+    "filters": {
+      "all": "全部"
+    },
+    "tripsUnit": "个行程"
+  },
+  "destination": {
+    "introduction": "目的地介绍",
+    "relatedTrips": "相关行程",
+    "info": {
+      "destination": "目的地",
+      "tripCount": "行程数量",
+      "bestTime": "最佳出行时间",
+      "visaInfo": "签证信息",
+      "highlights": "亮点"
+    },
+    "inquire": {
+      "title": "立即咨询",
+      "subtitle": "填写表单，旅行专家将在 24 小时内联系您",
+      "button": "联系我们 →"
+    }
+  },
+  "stories": {
+    "title": "旅行灵感",
+    "subtitle": "探索真实故事，激发你的旅行灵感",
+    "readMore": "阅读更多",
+    "readTime": "阅读 {minutes} 分钟",
+    "relatedArticles": "相关文章",
+    "back": "← 返回故事列表",
+    "published": "发布于",
+    "share": "分享",
+    "author": "作者",
+    "latestArticles": "最新文章",
+    "podcasts": "播客",
+    "noContent": "暂无内容",
+    "episode": "第 {number} 期",
+    "filters": {
+      "all": "全部"
+    }
+  },
+  "feelings": {
+    "title": "你想在旅行中感受什么？",
+    "subtitle": "选择一种情感，为你匹配最合适的行程",
+    "back": "← 返回情感选择",
+    "emotionTrips": "{name} · {count} 个行程",
+    "discover": "发现匹配的行程"
+  },
+  "feeling": {
+    "title": "{name} · {count} 个行程",
+    "back": "← 返回情感选择"
+  },
+  "about": {
+    "title": "关于 APPLE TRAVEL",
+    "subtitle": "专注日本高端定制旅行",
+    "description": "APPLE TRAVEL 苹果旅行，专注于日本高端定制旅行体验。我们相信，真正的奢华不是昂贵的价格标签，而是那些无法用金钱衡量的瞬间。",
+    "teamDescription": "我们的团队由多位资深日本旅行专家组成，每个人都在日本生活或旅行了数十年。",
+    "philosophy": "我们的理念",
+    "deepExperience": "深度体验",
+    "deepExperienceDesc": "不是走马观花，而是沉浸其中。我们带您走进真正的日本，体验只有当地人知道的秘境。",
+    "customized": "量身定制",
+    "customizedDesc": "每一段旅程都是独一无二的。我们的旅行专家会根据您的喜好、预算和时间，为您打造专属行程。",
+    "beyondExpect": "超越期待",
+    "beyondExpectDesc": "我们追求的不只是满意，而是惊喜。每一次旅行都力求超越您的期待，让您留下难忘的回忆。",
+    "team": "旅行专家团队",
+    "contactSubtitle": "填写表单，我们的旅行专家将在 24 小时内与您联系",
+    "heroSubtitle": "将奢华、惬意的时光，献给你。",
+    "brandStory": "品牌故事",
+    "brandPromise": "每一次旅行，我们都力求超越期待。不是简单的行程安排，而是一次心灵的触动；不是走马观花的打卡，而是深度沉浸的体验。",
+    "teamSubtitle": "每一位旅行专家都经过严格筛选，拥有丰富的日本旅行经验和专业知识",
+    "ctaTitle": "开始您的专属旅程",
+    "stats": {
+      "destinations": "日本目的地",
+      "trips": "精选行程",
+      "reviews": "客户好评",
+      "experience": "年行业经验"
+    }
+  },
+  "contact": {
+    "title": "联系我们",
+    "subtitle": "有任何问题？我们随时为您服务",
+    "contactInfo": "联系方式",
+    "phone": "电话",
+    "email": "邮箱",
+    "address": "地址",
+    "formTitle": "在线咨询",
+    "formSubtitle": "填写以下表单，我们的旅行专家将在 24 小时内与您联系"
+  },
+  "footer": {
+    "description": "用心打造每一次旅程，让旅行成为人生中最美好的回忆。",
+    "quickLinks": "快速链接",
+    "contactUs": "联系我们",
+    "followUs": "关注我们",
+    "rights": "版权所有",
+    "privacy": "隐私政策",
+    "terms": "使用条款"
+  },
+  "form": {
+    "title": "咨询表单",
+    "subtitle": "填写以下信息，我们的旅行专家将在 24 小时内与您联系",
+    "sections": {
+      "basic": "基本信息",
+      "needs": "旅行需求",
+      "emotions": "您希望在旅行中感受什么？（选填）",
+      "interests": "感兴趣的体验（选填）",
+      "notes": "其他需求或备注（选填）"
+    },
+    "fields": {
+      "lastName": "姓氏",
+      "firstName": "名字",
+      "email": "邮箱",
+      "phone": "电话（选填）",
+      "destination": "意向目的地",
+      "travelDate": "出行日期（选填）",
+      "duration": "期望天数（选填）",
+      "travelers": "出行人数",
+      "travelerType": "出行类型",
+      "budget": "预算范围（选填）",
+      "notes": "备注",
+      "flexible": "我的出行日期比较灵活"
+    },
+    "placeholders": {
+      "lastName": "请输入姓氏",
+      "firstName": "请输入名字",
+      "email": "example@email.com",
+      "phone": "+86 138 0000 0000",
+      "destination": "如：日本、非洲、冰岛",
+      "duration": "如：7",
+      "notes": "请告诉我们您的特殊需求、饮食偏好、身体状况等..."
+    },
+    "options": {
+      "select": "请选择",
+      "travelerType": {
+        "Couple": "情侣/夫妻",
+        "Family": "家庭出行",
+        "Solo": "独自旅行",
+        "Friends": "朋友同行"
+      },
+      "budget": {
+        "10000-30000": "1万 - 3万",
+        "30000-50000": "3万 - 5万",
+        "50000-100000": "5万 - 10万",
+        "100000+": "10万以上"
+      },
+      "interests": {
+        "Culture": "文化体验",
+        "Adventure": "冒险探索",
+        "Wellness": "健康养生",
+        "Food": "美食美酒",
+        "Wildlife": "野生动物",
+        "History": "历史古迹",
+        "Nature": "自然风光",
+        "Photography": "摄影"
+      },
+      "emotions": {
+        "Contentment": "宁静满足",
+        "Revitalized": "活力焕发",
+        "Freedom": "自由奔放",
+        "Distraction": "沉浸忘我",
+        "Challenged": "挑战自我"
+      },
+      "emotionIcons": {
+        "Contentment": "🧘",
+        "Revitalized": "⚡",
+        "Freedom": "🕊️",
+        "Distraction": "🎭",
+        "Challenged": "🏔️"
+      }
+    },
+    "submit": "提交咨询",
+    "submitting": "提交中...",
+    "privacy": "提交即表示您同意我们的隐私政策，我们将在 24 小时内联系您",
+    "success": {
+      "title": "咨询已提交成功！",
+      "subtitle": "我们的旅行专家将在 24 小时内与您联系",
+      "phone": "如有紧急需求，请致电：+86 400-XXX-XXXX"
+    },
+    "errors": {
+      "submitFailed": "提交失败，请稍后重试",
+      "submitError": "提交失败",
+      "firstName": "请输入姓名",
+      "lastName": "请输入姓名",
+      "email": "请输入有效的邮箱地址",
+      "emailRequired": "请输入邮箱地址",
+      "destination": "请输入意向目的地"
+    }
+  },
+  "admin": {
+    "dashboard": "Dashboard",
+    "trips": {
+      "title": "行程管理",
+      "create": "创建新行程",
+      "edit": "编辑行程",
+      "delete": "删除行程"
+    },
+    "destinations": {
+      "title": "目的地管理",
+      "create": "添加新目的地"
+    },
+    "inquiries": {
+      "title": "咨询管理",
+      "search": "搜索客户姓名或邮箱...",
+      "statuses": {
+        "NEW": "新咨询",
+        "CONTACTED": "已联系",
+        "IN_PROGRESS": "处理中",
+        "QUOTED": "已报价",
+        "BOOKED": "已预订",
+        "CLOSED": "已关闭",
+        "LOST": "已流失"
+      }
+    },
+    "stats": {
+      "trips": "行程总数",
+      "destinations": "目的地总数",
+      "inquiries": "咨询总数",
+      "bookings": "预订总数"
+    },
+    "manage": "管理{item}",
+    "columns": {
+      "name": "名称",
+      "destination": "目的地",
+      "emotion": "情感",
+      "duration": "天数",
+      "price": "价格",
+      "status": "状态",
+      "budget": "预算",
+      "tripCount": "行程数量",
+      "continent": "大洲"
+    }
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "出错了",
+    "retry": "重试",
+    "back": "返回",
+    "viewAll": "查看全部",
+    "learnMore": "了解更多",
+    "readMore": "阅读更多",
+    "close": "关闭",
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "create": "创建",
+    "search": "搜索",
+    "filter": "筛选",
+    "noData": "暂无数据",
+    "day": "天",
+    "night": "晚",
+    "price": "价格",
+    "from": "起",
+    "people": "人"
+  },
+  "header": {
+    "brandEn": "APPLE TRAVEL",
+    "brandCn": "苹果旅行",
+    "brandJa": "林檎旅行",
+    "cta": "定制日本之旅",
+    "menu": "菜单",
+    "switchLanguage": "切换语言",
+    "languageLabel": "语言"
+  },
+  "tripDetail": {
+    "back": "← 返回行程列表",
+    "overview": "行程介绍",
+    "itinerary": {
+      "title": "每日行程",
+      "dayLabel": "天",
+      "accommodation": "住宿",
+      "day": "第 {day} 天"
+    },
+    "included": "费用包含",
+    "excluded": "费用不含",
+    "reviews": "客户评价",
+    "relatedTrips": "相关行程推荐",
+    "price": {
+      "inquireOnly": "咨询获取报价",
+      "customQuote": "专属定制报价",
+      "startingFrom": "起步价",
+      "perPerson": "人"
+    },
+    "inquiry": {
+      "title": "立即咨询",
+      "subtitle": "填写表单，旅行专家将在 24 小时内联系您",
+      "orCall": "或直接致电"
+    },
+    "quickInfo": {
+      "duration": "行程天数",
+      "travelers": "出行人数",
+      "difficulty": "难度等级",
+      "activityLevel": "活动强度",
+      "emotion": "情感标签",
+      "subDestinations": "途经目的地"
+    }
+  },
+  "destinationDetail": {
+    "back": "← 返回目的地列表",
+    "tripsCount": "{count} 个精选行程",
+    "overview": "目的地介绍",
+    "highlights": "必体验",
+    "travelTips": "旅行贴士",
+    "bestTime": "最佳旅行时间",
+    "visaInfo": "签证信息",
+    "relatedTrips": "相关行程",
+    "quickInfo": "快速信息",
+    "destination": "目的地",
+    "tripCount": "行程数量",
+    "tripsUnit": "个",
+    "inquiry": "立即咨询",
+    "inquirySubtitle": "填写表单，旅行专家将在 24 小时内联系您",
+    "contactUs": "联系我们 →",
+    "day": "天",
+    "night": "晚"
+  }
+}

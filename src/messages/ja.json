@@ -1,0 +1,394 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "trips": "厳選旅程",
+    "destinations": "目的地",
+    "stories": "インスピレーション",
+    "feelings": "感情体験",
+    "about": "私たちについて",
+    "contact": "お問い合わせ",
+    "switchLanguage": "言語切替"
+  },
+  "home": {
+    "hero": {
+      "preTitle": "高級カスタム旅行",
+      "title": "あなただけの旅を始めよう",
+      "subtitle": "繁華な都市から隠れた秘境まで、あなただけの特別な旅行体験をお届けします",
+      "cta": "旅程を見る",
+      "ctaSecondary": "お問い合わせ"
+    },
+    "featuredTrips": {
+      "sectionTitle": "厳選旅程",
+      "sectionSubtitle": "すべての旅は、唯一無二の体験です",
+      "viewAll": "すべて見る"
+    },
+    "feelings": {
+      "sectionTitle": "感情で選ぶ旅",
+      "sectionSubtitle": "旅行でどんな気持ちになりたいですか？",
+      "learnMore": "詳しく見る"
+    },
+    "stories": {
+      "sectionTitle": "インスピレーション",
+      "sectionSubtitle": "実際の旅行者からのストーリーとインスピレーション",
+      "viewAll": "すべて見る"
+    },
+    "testimonials": {
+      "sectionTitle": "お客様の声",
+      "sectionSubtitle": "お客様の体験談をご覧ください"
+    },
+    "podcasts": {
+      "sectionTitle": "旅行ポッドキャスト",
+      "sectionSubtitle": "専門旅行アドバイザーのアドバイスを聴く",
+      "listen": "聴く"
+    },
+    "cta": {
+      "title": "旅を始めませんか？",
+      "subtitle": "旅行エキスパートが24時間以内にご連絡いたします",
+      "button": "カスタマイズを始める"
+    }
+  },
+  "trips": {
+    "title": "厳選旅程",
+    "subtitle": "すべての旅は、唯一無二の体験です",
+    "filters": {
+      "all": "すべての感情",
+      "byContinent": "大陸で筛选",
+      "allContinents": "すべて"
+    },
+    "noResults": "条件に合致する旅程はありません",
+    "inquire": "今すぐ相談",
+    "priceFrom": "¥{price}〜",
+    "duration": "{days}泊{nights}晩",
+    "exclusive": "限定",
+    "featured": "厳選"
+  },
+  "destinations": {
+    "title": "目的地を発見",
+    "subtitle": "世界中の100以上の目的地をカバー、次の停留所を見つけよう",
+    "noData": "目的地データがありません",
+    "continent": "大陸で絞り込み",
+    "all": "すべて",
+    "continents": {
+      "Asia": "アジア",
+      "Europe": "ヨーロッパ",
+      "North America": "北アメリカ",
+      "Oceania": "オセアニア",
+      "Africa": "アフリカ",
+      "South America": "南アメリカ",
+      "asia": "アジア"
+    },
+    "viewAll": "すべての目的地を見る",
+    "filters": {
+      "all": "すべて"
+    },
+    "tripsUnit": "旅程"
+  },
+  "destination": {
+    "introduction": "目的地紹介",
+    "relatedTrips": "関連旅程",
+    "info": {
+      "destination": "目的地",
+      "tripCount": "旅程数",
+      "bestTime": "ベストシーズン",
+      "visaInfo": "ビザ情報",
+      "highlights": "ハイライト"
+    },
+    "inquire": {
+      "title": "今すぐ相談",
+      "subtitle": "フォームに記入すると、旅行エキスパートが24時間以内にご連絡します",
+      "button": "お問い合わせ →"
+    }
+  },
+  "stories": {
+    "title": "旅行インスピレーション",
+    "subtitle": "リアルなストーリーで次の冒険を刺激しよう",
+    "readMore": "続きを読む",
+    "readTime": "{minutes} 分で読める",
+    "relatedArticles": "関連記事",
+    "back": "← ストーリー一覧に戻る",
+    "published": "公開日",
+    "share": "シェア",
+    "author": "著者",
+    "latestArticles": "最新記事",
+    "podcasts": "ポッドキャスト",
+    "noContent": "コンテンツがありません",
+    "episode": "第 {number} 回",
+    "filters": {
+      "all": "すべて"
+    }
+  },
+  "feelings": {
+    "title": "旅行で何を感じたいですか？",
+    "subtitle": "感情を選んで、完璧な旅程をマッチング",
+    "back": "← 感情選択に戻る",
+    "emotionTrips": "{name} · {count} 件の旅程",
+    "discover": "マッチする旅程を発見"
+  },
+  "feeling": {
+    "title": "{name} · {count}件の旅程",
+    "back": "← 感情選択に戻る"
+  },
+  "about": {
+    "title": "APPLE TRAVEL について",
+    "subtitle": "日本高端カスタム旅行に特化",
+    "description": "APPLE TRAVEL は日本高端カスタム旅行体験に特化しています。真の贅沢は高価な価格タグではなく、お金では買えない瞬間だと信じています。",
+    "teamDescription": "私たちのチームは経験豊富な日本旅行エキスパートで構成されており、それぞれが日本で数十年間生活または旅行しています。",
+    "philosophy": "私たちの理念",
+    "deepExperience": "没入体験",
+    "deepExperienceDesc": "観光不仅仅是、本当の没入へ。地元の人々だけが知る隠れた名所へご招待します。",
+    "customized": "オーダーメイド",
+    "customizedDesc": "それぞれの旅は唯一無二です。お客様の好み、ご予算、スケジュールに合わせて専用旅程を作成します。",
+    "beyondExpect": "期待を超えて",
+    "beyondExpectDesc": "満足だけでなく、感動を追求しています。すべての旅が期待を超え、忘れられない思い出となることを目指しています。",
+    "team": "旅行エキスパートチーム",
+    "contactSubtitle": "フォームに記入すると、旅行エキスパートが24時間以内にご連絡します",
+    "heroSubtitle": "贅沢な時間を、あなたに。",
+    "brandStory": "ブランドストーリー",
+    "brandPromise": "每一次の旅で、期待を超えることを目指しています。単なる旅程ではなく、魂に触れる体験です。",
+    "teamSubtitle": "すべての旅行エキスパートは厳しく選抜され、豊富な日本旅行経験と専門知識を持っています。",
+    "ctaTitle": "あなただけの旅を始める",
+    "stats": {
+      "destinations": "日本目的地",
+      "trips": "厳選旅程",
+      "reviews": "顧客レビュー",
+      "experience": "年の業界経験"
+    }
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "subtitle": "ご質問がありますか？いつでもお手伝いします",
+    "contactInfo": "連絡先",
+    "phone": "電話",
+    "email": "メール",
+    "address": "住所",
+    "formTitle": "オンライン相談",
+    "formSubtitle": "以下のフォームに記入すると、旅行エキスパートが24時間以内にご連絡します"
+  },
+  "footer": {
+    "description": "すべての旅を心を込めて作り上げ、旅行を人生で最も美しい思い出に。",
+    "quickLinks": "クイックリンク",
+    "contactUs": "お問い合わせ",
+    "followUs": "フォローする",
+    "rights": "全著作権所有",
+    "privacy": "プライバシーポリシー",
+    "terms": "利用規約"
+  },
+  "form": {
+    "title": "お問い合わせフォーム",
+    "subtitle": "以下の情報をご記入ください。旅行エキスパートが24時間以内にご連絡いたします",
+    "sections": {
+      "basic": "基本情報",
+      "needs": "旅行のご要望",
+      "emotions": "旅行でどんな気持ちになりたいですか？（任意）",
+      "interests": "興味のある体験（任意）",
+      "notes": "その他のご要望や備考（任意）"
+    },
+    "fields": {
+      "lastName": "姓",
+      "firstName": "名",
+      "email": "メール",
+      "phone": "電話（任意）",
+      "destination": "希望の目的地",
+      "travelDate": "出発日（任意）",
+      "duration": "希望日数（任意）",
+      "travelers": "旅行者数",
+      "travelerType": "旅行タイプ",
+      "budget": "予算範囲（任意）",
+      "notes": "備考",
+      "flexible": "出発日は柔軟に対応できます"
+    },
+    "placeholders": {
+      "lastName": "姓を入力してください",
+      "firstName": "名を入力してください",
+      "email": "example@email.com",
+      "phone": "+81 90 0000 0000",
+      "destination": "例：日本、アフリカ、アイスランド",
+      "duration": "例：7",
+      "notes": "特別なご要望、食事の好み、健康状態などをお知らせください..."
+    },
+    "options": {
+      "select": "選択してください",
+      "travelerType": {
+        "Couple": "カップル/夫婦",
+        "Family": "家族旅行",
+        "Solo": "一人旅",
+        "Friends": "友人同士"
+      },
+      "budget": {
+        "10000-30000": "1万〜3万円",
+        "30000-50000": "3万〜5万円",
+        "50000-100000": "5万〜10万円",
+        "100000+": "10万円以上"
+      },
+      "interests": {
+        "Culture": "文化体験",
+        "Adventure": "アドベンチャー",
+        "Wellness": "ウェルネス",
+        "Food": "グルメ＆ワイン",
+        "Wildlife": "野生動物",
+        "History": "歴史的建造物",
+        "Nature": "自然風景",
+        "Photography": "写真撮影"
+      },
+      "emotions": {
+        "Contentment": "安らぎ",
+        "Revitalized": "活力",
+        "Freedom": "自由",
+        "Distraction": "没頭",
+        "Challenged": "挑戦"
+      },
+      "emotionIcons": {
+        "Contentment": "🧘",
+        "Revitalized": "⚡",
+        "Freedom": "🕊️",
+        "Distraction": "🎭",
+        "Challenged": "🏔️"
+      }
+    },
+    "submit": "送信",
+    "submitting": "送信中...",
+    "privacy": "送信することでプライバシーポリシーに同意したことになります。24時間以内にご連絡いたします。",
+    "success": {
+      "title": "お問い合わせが送信されました！",
+      "subtitle": "旅行エキスパートが24時間以内にご連絡いたします",
+      "phone": "緊急のお問い合わせはお電話ください：+86 400-XXX-XXXX"
+    },
+    "errors": {
+      "submitFailed": "送信に失敗しました。後ほど再度お試しください。",
+      "submitError": "送信に失敗しました",
+      "firstName": "お名前を入力してください",
+      "lastName": "お名前を入力してください",
+      "email": "有効なメールアドレスを入力してください",
+      "emailRequired": "メールアドレスを入力してください",
+      "destination": "希望の目的地を入力してください"
+    }
+  },
+  "admin": {
+    "dashboard": "ダッシュボード",
+    "trips": {
+      "title": "旅程管理",
+      "create": "新しい旅程を作成",
+      "edit": "旅程を編集",
+      "delete": "旅程を削除"
+    },
+    "destinations": {
+      "title": "目的地管理",
+      "create": "新しい目的地を追加"
+    },
+    "inquiries": {
+      "title": "お問い合わせ管理",
+      "search": "名前またはメールで検索...",
+      "statuses": {
+        "NEW": "新規お問い合わせ",
+        "CONTACTED": "連絡済み",
+        "IN_PROGRESS": "処理中",
+        "QUOTED": "見積もり済み",
+        "BOOKED": "予約済み",
+        "CLOSED": "完了",
+        "LOST": "流失"
+      }
+    },
+    "stats": {
+      "trips": "旅程総数",
+      "destinations": "目的地総数",
+      "inquiries": "お問い合わせ総数",
+      "bookings": "予約総数"
+    },
+    "manage": "{item}を管理",
+    "columns": {
+      "name": "名前",
+      "destination": "目的地",
+      "emotion": "感情",
+      "duration": "日数",
+      "price": "価格",
+      "status": "ステータス",
+      "budget": "予算",
+      "tripCount": "旅程数",
+      "continent": "大陸"
+    }
+  },
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "retry": "再試行",
+    "back": "戻る",
+    "viewAll": "すべて見る",
+    "learnMore": "詳しく見る",
+    "readMore": "続きを読む",
+    "close": "閉じる",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "edit": "編集",
+    "create": "作成",
+    "search": "検索",
+    "filter": "筛选",
+    "noData": "データがありません",
+    "day": "日",
+    "night": "泊",
+    "price": "価格",
+    "from": "〜",
+    "people": "名"
+  },
+  "header": {
+    "brandEn": "APPLE TRAVEL",
+    "brandCn": "苹果旅行",
+    "brandJa": "林檎旅行",
+    "cta": "日本旅行をカスタマイズ",
+    "menu": "メニュー",
+    "switchLanguage": "言語切替",
+    "languageLabel": "言語"
+  },
+  "tripDetail": {
+    "back": "← 旅程一覧に戻る",
+    "overview": "旅程概要",
+    "itinerary": {
+      "title": "毎日の旅程",
+      "dayLabel": "天",
+      "accommodation": "住宿",
+      "day": "第{day}日目"
+    },
+    "included": "含まれるもの",
+    "excluded": "含まれないもの",
+    "reviews": "お客様の声",
+    "relatedTrips": "関連旅程",
+    "price": {
+      "inquireOnly": "見積もり相談",
+      "customQuote": "カスタム見積もり",
+      "startingFrom": " startingから",
+      "perPerson": "人"
+    },
+    "inquiry": {
+      "title": "今すぐ相談",
+      "subtitle": "フォームに記入すると、旅行エキスパートが24時間以内にご連絡します",
+      "orCall": "またはお電話ください"
+    },
+    "quickInfo": {
+      "duration": "旅程日数",
+      "travelers": "グループサイズ",
+      "difficulty": "難易度",
+      "activityLevel": "活動レベル",
+      "emotion": "感情",
+      "subDestinations": "経由地"
+    }
+  },
+  "destinationDetail": {
+    "back": "← 目的地一覧に戻る",
+    "tripsCount": "{count} 件の厳選旅程",
+    "overview": "目的地概要",
+    "highlights": "必見・体験",
+    "travelTips": "旅行ヒント",
+    "bestTime": "ベストシーズン",
+    "visaInfo": "ビザ情報",
+    "relatedTrips": "関連旅程",
+    "quickInfo": "クイック情報",
+    "destination": "目的地",
+    "tripCount": "旅程数",
+    "tripsUnit": "件",
+    "inquiry": "今すぐ相談",
+    "inquirySubtitle": "フォームに記入すると、旅行エキスパートが24時間以内にご連絡します",
+    "contactUs": "お問い合わせ →",
+    "day": "日",
+    "night": "泊"
+  }
+}

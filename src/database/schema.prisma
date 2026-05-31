@@ -1,0 +1,421 @@
+// ============================================
+// Luxury Bespoke Travel - 数据库模型设计
+// 对标 Black Tomato 高端定制旅行网站
+// ============================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// ============================================
+// 核心业务模型
+// ============================================
+
+/// 情感标签 - Black Tomato 核心差异化
+/// 5 种核心情感：Contentment / Revitalized / Freedom / Distraction / Challenged
+model Emotion {
+  id          String   @id @default(cuid())
+  name        String   @unique                    // 情感名称（如：Contentment）
+  nameCn      String                              // 中文名（如：宁静满足）
+  description String                       // 情感描述
+  icon        String?                             // 图标/emoji
+  color       String   @default("#000000")         // 主题色
+  sortOrder   Int      @default(0)                 // 排序权重
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  trips       Trip[]
+  
+  @@map("emotions")
+}
+
+/// 目的地模型
+model Destination {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  name            String                              // 英文名
+  nameCn          String                              // 中文名
+  nameLocal       String?                             // 本地语言名
+  continent       String                              // 大洲：Africa / Asia / Europe / etc.
+  region          String?                             // 区域：东南亚 / 东亚 / 南亚
+  countryCode     String?                             // ISO 国家代码
+  description     String                       // 目的地简介
+  descriptionLong String?                      // 详细介绍
+  coverImage      String                              // 封面图 URL
+  gallery         String                            // 图片画廊
+  videoUrl        String?                             // 宣传视频 URL
+  highlight       String                 // 亮点列表
+  bestSeason      String?                             // 最佳季节
+  currency        String?                             // 当地货币
+  language        String                            // 语言
+  timezone        String?                             // 时区
+  isFeatured      Boolean  @default(false)            // 是否推荐
+  sortOrder       Int      @default(0)
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  trips           Trip[]
+  experiences     Experience[]
+  seo             Seo?
+  
+  @@index([continent, isActive])
+  @@index([isFeatured])
+  @@map("destinations")
+}
+
+/// 行程/产品模型 - 核心业务
+model Trip {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  title           String                              // 行程标题
+  titleCn         String                              // 中文标题
+  subtitle        String?                             // 副标题
+  tagline         String?                      // 一句话介绍（情感导向）
+  description     String                       // 详细介绍
+  descriptionLong String?                      // 长文介绍（富文本）
+  coverImage      String                              // 封面图
+  gallery         String                            // 图片画廊
+  videoUrl        String?                             // 视频 URL
+  
+  // 基础信息
+  duration        Int                                 // 天数
+  nights          Int                                 // 晚数
+  minGuests       Int      @default(1)                // 最少人数
+  maxGuests       Int?                                // 最多人数
+  difficulty      String?                             // 难度：Easy / Moderate / Challenging
+  activityLevel   String?                             // 活动强度：Relaxed / Active / Intense
+  
+  // 情感与分类
+  emotionId       String?
+  emotion         Emotion? @relation(fields: [emotionId], references: [id])
+  categories      String                            // 分类标签：Adventure / Cultural / Wellness / Family
+  experiences     String                            // 体验类型：Wildlife / Food / History / Nature
+  
+  // 目的地关联
+  destinationId   String
+  destination     Destination @relation(fields: [destinationId], references: [id])
+  subDestinations String                            // 子目的地（如：东京 + 京都 + 大阪）
+  
+  // 价格信息（高端定制不公开具体价格）
+  priceFrom       Decimal?          // 起步价（可选显示）
+  priceCurrency   String   @default("USD")
+  priceNote       String?                      // 价格说明（如："Price per person, based on 2 travelers"）
+  isInquireOnly   Boolean  @default(true)             // 仅接受咨询（默认）
+  
+  // 行程详情
+  itinerary       String?                               // 每日行程（结构化 JSON）
+  inclusions      String                 // 包含项目
+  exclusions      String                 // 不包含项目
+  packingList     String                 // 建议行李清单
+  
+  // 预订信息
+  bookingNote     String?                      // 预订须知
+  cancellationPolicy String?                   // 取消政策
+  
+  // SEO 与展示
+  isFeatured      Boolean  @default(false)
+  isExclusive     Boolean  @default(false)            // 独家行程
+  sortOrder       Int      @default(0)
+  isActive        Boolean  @default(true)
+  publishedAt     DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // 关联
+  reviews         Review[]
+  inquiries       Inquiry[]
+  seo             Seo?
+  
+  @@index([destinationId, isActive])
+  @@index([emotionId])
+  @@index([isFeatured])
+  @@index([categories])
+  @@map("trips")
+}
+
+/// 体验项目 - 行程中的具体活动
+model Experience {
+  id              String   @id @default(cuid())
+  title           String
+  titleCn         String
+  description     String   
+  coverImage      String
+  gallery         String
+  duration        String?                             // 如："Half Day" / "Full Day" / "2 Hours"
+  location        String                              // 具体地点
+  destinationId   String?
+  destination     Destination? @relation(fields: [destinationId], references: [id])
+  category        String                              // 类别：Cultural / Adventure / Wellness / Food / Wildlife
+  priceIncluded   Boolean  @default(true)             // 是否包含在行程中
+  isOptional      Boolean  @default(false)            // 是否可选
+  sortOrder       Int      @default(0)
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([destinationId])
+  @@index([category])
+  @@map("experiences")
+}
+
+/// 酒店/住宿
+model Accommodation {
+  id              String   @id @default(cuid())
+  name            String
+  nameCn          String?
+  slug            String   @unique
+  description     String   
+  coverImage      String
+  gallery         String
+  location        String                              // 位置描述
+  latitude        Decimal? 
+  longitude       Decimal? 
+  starRating      Int?                                // 星级 1-5
+  category        String                              // 类型：Luxury Hotel / Boutique / Lodge / Villa / Camp
+  amenities       String                            // 设施
+  priceLevel      String?                             // 价格等级：$$$$ / $$$$$
+  website         String?
+  isFeatured      Boolean  @default(false)
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([category])
+  @@index([starRating])
+  @@map("accommodations")
+}
+
+/// 旅行专家/顾问 - Black Tomato 强调"真人专家"
+model TravelExpert {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  name            String
+  title           String                              // 职位：Senior Travel Designer
+  avatar          String                              // 头像
+  bio             String                       // 个人简介
+  specialties     String                            // 专长目的地
+  languages       String                            // 语言能力
+  yearsExperience Int                                 // 从业年限
+  quote           String?                      // 个人格言
+  videoIntro      String?                             // 介绍视频
+  email           String?                             // 工作邮箱
+  isAvailable     Boolean  @default(true)
+  sortOrder       Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  inquiries       Inquiry[]
+  
+  @@map("travel_experts")
+}
+
+// ============================================
+// 用户与交互
+// ============================================
+
+/// 咨询/询盘 - 高端定制核心转化路径
+model Inquiry {
+  id              String   @id @default(cuid())
+  status          InquiryStatus @default(NEW)
+  
+  // 客户信息
+  firstName       String
+  lastName        String
+  email           String
+  phone           String?
+  country         String?
+  
+  // 旅行需求
+  tripId          String?
+  trip            Trip?    @relation(fields: [tripId], references: [id])
+  destination     String?                             // 意向目的地
+  emotions        String                            // 情感偏好
+  travelDates     DateTime?                           // 出行日期
+  travelDatesFlexible Boolean @default(false)         // 日期是否灵活
+  duration        Int?                                // 期望天数
+  travelers       Int      @default(1)                // 出行人数
+  travelerType    String?                             // 类型：Couple / Family / Solo / Friends
+  budget          String?                             // 预算范围
+  
+  // 偏好
+  interests       String                            // 兴趣标签
+  notes           String?                      // 备注/特殊需求
+  
+  // 分配
+  expertId        String?
+  expert          TravelExpert? @relation(fields: [expertId], references: [id])
+  
+  // 跟进
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  contactedAt     DateTime?                           // 首次联系时间
+  convertedAt     DateTime?                           // 转化时间
+  closedAt        DateTime?                           // 关闭时间
+  closedReason    String?
+  
+  @@index([status])
+  @@index([expertId])
+  @@index([createdAt])
+  @@map("inquiries")
+}
+
+/// 用户评价
+model Review {
+  id              String   @id @default(cuid())
+  tripId          String
+  trip            Trip     @relation(fields: [tripId], references: [id])
+  
+  customerName    String
+  customerAvatar  String?
+  location        String                              // 客户所在地
+  rating          Int                                 // 评分 1-5
+  title           String                              // 评价标题
+  content         String                       // 评价内容
+  tripDate        DateTime?                           // 出行日期
+  isVerified      Boolean  @default(true)
+  isFeatured      Boolean  @default(false)
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  
+  @@index([tripId])
+  @@index([isFeatured])
+  @@map("reviews")
+}
+
+/// 用户账户（可选，高端定制通常不需要注册）
+model User {
+  id              String   @id @default(cuid())
+  email           String   @unique
+  name            String?
+  phone           String?
+  role            UserRole @default(CUSTOMER)
+  inquiries       Inquiry[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@map("users")
+}
+
+// ============================================
+// 内容管理
+// ============================================
+
+/// SEO 元数据
+model Seo {
+  id              String   @id @default(cuid())
+  destinationId   String?
+  tripId          String?
+  pageSlug        String   @unique                    // 页面路径
+  
+  title           String                              // SEO 标题
+  description     String                       // Meta 描述
+  keywords        String                            // 关键词
+  ogImage         String?                             // OG 图片
+  canonical       String?                             //  canonical URL
+  
+  destination     Destination? @relation(fields: [destinationId], references: [id])
+  trip            Trip?      @relation(fields: [tripId], references: [id])
+  
+  @@index([pageSlug])
+  @@map("seo")
+}
+
+/// 品牌故事/博客/灵感文章
+model Article {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  type            ArticleType @default(STORY)
+  
+  title           String
+  titleCn         String?
+  subtitle        String?
+  coverImage      String
+  gallery         String
+  videoUrl        String?
+  content         String                       // 富文本内容
+  
+  categories      String                            // 分类
+  tags            String                            // 标签
+  author          String?                             // 作者
+  readTime        Int?                                // 阅读时间（分钟）
+  
+  isFeatured      Boolean  @default(false)
+  isPublished     Boolean  @default(false)
+  publishedAt     DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([type, isPublished])
+  @@index([isFeatured])
+  @@map("articles")
+}
+
+/// 播客（对标 Black Tomato 的播客功能）
+model Podcast {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  title           String
+  description     String   
+  coverImage      String
+  audioUrl        String                              // 音频文件 URL
+  duration        Int                                 // 时长（秒）
+  episodeNumber   Int
+  seasonNumber    Int      @default(1)
+  guests          String                            // 嘉宾
+  transcript      String?                      // 文字稿
+  isPublished     Boolean  @default(false)
+  publishedAt     DateTime?
+  createdAt       DateTime @default(now())
+  
+  @@index([isPublished])
+  @@map("podcasts")
+}
+
+// ============================================
+// 系统配置
+// ============================================
+
+/// 站点配置
+model SiteConfig {
+  id              String   @id @default(cuid())
+  key             String   @unique
+  value           String   
+  category        String                              // 分类：general / contact / social / seo
+  
+  @@index([category])
+  @@map("site_config")
+}
+
+// ============================================
+// 枚举定义
+// ============================================
+
+enum InquiryStatus {
+  NEW           // 新询盘
+  CONTACTED     // 已联系
+  IN_PROGRESS   // 跟进中
+  QUOTED        // 已报价
+  BOOKED        // 已预订
+  CLOSED        // 已关闭
+  LOST          // 流失
+}
+
+enum UserRole {
+  CUSTOMER
+  EXPERT
+  ADMIN
+}
+
+enum ArticleType {
+  STORY         // 品牌故事
+  GUIDE         // 旅行指南
+  FEATURE       // 专题
+  NEWS          // 新闻
+}
