@@ -30,6 +30,7 @@ function LanguageSwitcher({ isScrolled }: { isScrolled: boolean }) {
   const navItems = [
     { label: tNav('destinations'), href: '/destinations' },
     { label: tNav('trips'), href: '/trips' },
+    { label: tNav('aiPlanner'), href: '/ai-planner' },
     { label: tNav('feelings'), href: '/feelings' },
     { label: tNav('stories'), href: '/stories' },
     { label: tNav('about'), href: '/about' },
@@ -121,6 +122,7 @@ export function Header() {
   const navItems = [
     { label: tNav('destinations'), href: '/destinations' },
     { label: tNav('trips'), href: '/trips' },
+    { label: tNav('aiPlanner'), href: '/ai-planner' },
     { label: tNav('feelings'), href: '/feelings' },
     { label: tNav('stories'), href: '/stories' },
     { label: tNav('about'), href: '/about' },

@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { AiChatWidget } from '@/components/AiChatWidget';
 
 // ============================================
 // 静态生成参数
@@ -40,6 +41,7 @@ export default async function LocaleLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <AiChatWidget />
       </div>
     </NextIntlClientProvider>
   );
