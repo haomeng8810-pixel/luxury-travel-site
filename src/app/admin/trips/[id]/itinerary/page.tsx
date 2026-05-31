@@ -18,7 +18,7 @@ interface ItineraryDay {
 export default function EditTripItineraryPage() {
   const router = useRouter();
   const params = useParams();
-  const tripId = params.id as string;
+  const tripId = (params?.id as string) || '';
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);

@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { AiChatWidget } from '@/components/AiChatWidget';
+import AiChatWidget from '@/components/AiChatWidget';
 
 // ============================================
 // 静态生成参数

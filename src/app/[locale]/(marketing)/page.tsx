@@ -108,7 +108,7 @@ async function getTestimonials() {
     titleCn: review.title,
     titleJp: review.title,
     content: review.content,
-    tripDate: review.tripDate || undefined,
+    tripDate: review.tripDate || null,
   }));
 }
 

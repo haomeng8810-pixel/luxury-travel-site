@@ -56,6 +56,7 @@ async function getTrip(slug: string) {
     isFeatured: trip.isFeatured,
     isExclusive: trip.isExclusive,
     destination: {
+      id: trip.destination.id,
       name: trip.destination.name,
       nameCn: trip.destination.nameCn,
       nameEn: trip.destination.name,

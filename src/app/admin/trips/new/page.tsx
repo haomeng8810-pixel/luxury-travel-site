@@ -36,7 +36,6 @@ export default function NewTripPage() {
           duration: Number(data.duration),
           nights: Number(data.nights),
           minGuests: Number(data.minGuests) || 2,
-          priceFrom: data.priceFrom ? Number(data.priceFrom) : undefined,
           sortOrder: Number(data.sortOrder) || 0,
           priceFrom: data.isInquireOnly ? undefined : Number(data.priceFrom),
         }),

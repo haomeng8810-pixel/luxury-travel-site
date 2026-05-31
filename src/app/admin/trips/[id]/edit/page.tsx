@@ -7,7 +7,7 @@ import Link from 'next/link';
 export default function EditTripPage() {
   const router = useRouter();
   const params = useParams();
-  const tripId = params.id as string;
+  const tripId = (params?.id as string) || '';
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);

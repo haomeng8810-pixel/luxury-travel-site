@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import AiPlannerForm from '@/components/AiPlannerForm';
 
 export async function generateMetadata({ params }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale, namespace: 'aiPlanner' });
+  const t = await getTranslations({ locale: params.locale, namespace: 'aiPlanner' });
   return {
     title: t('title'),
     description: t('description'),

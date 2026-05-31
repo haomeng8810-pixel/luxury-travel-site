@@ -7,7 +7,7 @@ import Link from 'next/link';
 export default function EditDestinationPage() {
   const router = useRouter();
   const params = useParams();
-  const destId = params.id as string;
+  const destId = (params?.id as string) || '';
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);

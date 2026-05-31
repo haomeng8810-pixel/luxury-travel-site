@@ -47,6 +47,9 @@ export async function POST(request: NextRequest) {
         isExclusive: data.isExclusive || false,
         sortOrder: data.sortOrder || 0,
         isActive: data.isActive !== undefined ? data.isActive : true,
+        inclusions: data.inclusions ? JSON.stringify(data.inclusions) : '[]',
+        exclusions: data.exclusions ? JSON.stringify(data.exclusions) : '[]',
+        packingList: data.packingList ? JSON.stringify(data.packingList) : '[]',
       },
     });
 

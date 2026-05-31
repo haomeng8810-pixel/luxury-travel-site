@@ -59,13 +59,15 @@ function getEmotionOptions(t: any) {
 interface InquiryFormProps {
   prefillDestination?: string;
   prefillEmotion?: string;
+  tripSlug?: string;
+  tripTitle?: string;
 }
 
 // ============================================
 // Component Implementation
 // ============================================
 
-export function InquiryForm({ prefillDestination, prefillEmotion }: InquiryFormProps) {
+export function InquiryForm({ prefillDestination, prefillEmotion, tripSlug, tripTitle }: InquiryFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
