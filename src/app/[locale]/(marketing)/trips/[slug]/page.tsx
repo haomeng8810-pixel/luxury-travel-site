@@ -114,7 +114,7 @@ async function getRelatedTrips(destinationId: string, currentSlug: string) {
     take: 3,
   });
 
-  return trips.map((t) => ({
+  return trips.map((t: any) => ({
     id: t.id,
     slug: t.slug,
     title: t.title,
