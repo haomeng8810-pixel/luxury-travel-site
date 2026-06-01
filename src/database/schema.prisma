@@ -226,6 +226,8 @@ model Inquiry {
   status          InquiryStatus @default(NEW)
   
   // 客户信息
+  userId          String?
+  user            User?    @relation(fields: [userId], references: [id])
   firstName       String
   lastName        String
   email           String
@@ -289,15 +291,18 @@ model Review {
   @@map("reviews")
 }
 
-/// 用户账户（可选，高端定制通常不需要注册）
+/// 用户账户
 model User {
   id              String   @id @default(cuid())
   email           String   @unique
   name            String?
   phone           String?
+  password        String?                             // 加密密码
   role            UserRole @default(CUSTOMER)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+  
+  inquiries       Inquiry[]
   
   @@map("users")
 }

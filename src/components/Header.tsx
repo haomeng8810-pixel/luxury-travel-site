@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { usePathname, Link as IntlLink } from '@/i18n/navigation';
+import AuthButton from '@/components/AuthButton';
 
 // ============================================
 // 语言配置
@@ -172,8 +173,9 @@ export function Header() {
             ))}
           </nav>
 
-          {/* 右侧操作区：语言切换 + CTA */}
+          {/* 右侧操作区：Auth + 语言切换 + CTA */}
           <div className="hidden md:flex items-center gap-4">
+            <AuthButton />
             <LanguageSwitcher isScrolled={isScrolled} />
             <IntlLink
               href="/#contact"

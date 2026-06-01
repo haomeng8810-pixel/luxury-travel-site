@@ -5,6 +5,7 @@ import { routing } from '@/i18n/routing';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import AiChatWidget from '@/components/AiChatWidget';
+import AuthProvider from '@/components/AuthProvider';
 
 // ============================================
 // 静态生成参数
@@ -36,13 +37,15 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <NextIntlClientProvider messages={messages}>
-      <div className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <AiChatWidget />
-      </div>
-    </NextIntlClientProvider>
+    <AuthProvider>
+      <NextIntlClientProvider messages={messages}>
+        <div className="min-h-screen flex flex-col">
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <AiChatWidget />
+        </div>
+      </NextIntlClientProvider>
+    </AuthProvider>
   );
 }
