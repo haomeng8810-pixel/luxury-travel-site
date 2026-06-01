@@ -70,9 +70,9 @@ function getLocaleField(obj: any, field: string, locale: string): string {
 // 关于我们页面 - APPLE TRAVEL 苹果旅行
 // ============================================
 
-export default async function AboutPage({ params }: { params: { locale: string } }) {
+export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const t = await getTranslations('about');
-  const locale = params.locale;
+  const { locale } = await params;
 
   return (
     <div className="min-h-screen bg-white">

@@ -26,9 +26,9 @@ function getLocaleField(obj: any, field: string, locale: string): string {
 // 情感选择器首页
 // ============================================
 
-export default async function FeelingsIndexPage({ params }: { params: { locale: string } }) {
+export default async function FeelingsIndexPage({ params }: { params: Promise<{ locale: string }> }) {
   const t = await getTranslations('feelings');
-  const locale = params.locale;
+  const { locale } = await params;
 
   return (
     <div className="min-h-screen bg-white">

@@ -127,10 +127,10 @@ function getLocaleArray(obj: any, field: string, locale: string): string[] {
 // 目的地详情页
 // ============================================
 
-export default async function DestinationDetailPage({ params }: { params: { slug: string; locale: string } }) {
+export default async function DestinationDetailPage({ params }: { params: Promise<{ slug: string; locale: string }> }) {
   const t = await getTranslations('destinationDetail');
-  const locale = params.locale;
-  const destination = DESTINATIONS[params.slug];
+  const { locale, slug } = await params;
+  const destination = DESTINATIONS[slug];
   if (!destination) notFound();
 
   const displayName = getLocaleField(destination, 'name', locale);

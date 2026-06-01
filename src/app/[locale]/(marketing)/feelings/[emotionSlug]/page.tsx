@@ -74,10 +74,10 @@ function getLocaleField(obj: any, field: string, locale: string): string {
 // 情感详情页
 // ============================================
 
-export default async function FeelingsDetailPage({ params }: { params: { emotionSlug: string; locale: string } }) {
+export default async function FeelingsDetailPage({ params }: { params: Promise<{ emotionSlug: string; locale: string }> }) {
   const t = await getTranslations('feelings');
-  const locale = params.locale;
-  const emotion = EMOTIONS[params.emotionSlug];
+  const { locale, emotionSlug } = await params;
+  const emotion = EMOTIONS[emotionSlug];
   if (!emotion) notFound();
 
   const displayName = getLocaleField(emotion, 'name', locale);

@@ -130,15 +130,16 @@ async function getRelatedTrips(destinationId: string, currentSlug: string) {
 export default async function TripDetailPage({
   params,
 }: {
-  params: { slug: string; locale: string };
+  params: Promise<{ slug: string; locale: string }>;
 }) {
-  const trip = await getTrip(params.slug);
+  const { slug, locale } = await params;
+  const trip = await getTrip(slug);
   if (!trip) notFound();
 
   const t = await getTranslations('tripDetail');
   const tCommon = await getTranslations('common');
 
-  const relatedTrips = await getRelatedTrips(trip.destination.slug === params.slug ? '' : trip.destination.id, params.slug);
+  const relatedTrips = await getRelatedTrips(trip.destination.slug === slug ? '' : trip.destination.id, slug);
 
   return (
     <main className="min-h-screen bg-white">
@@ -146,7 +147,7 @@ export default async function TripDetailPage({
       <div className="relative h-[70vh]">
         <Image
           src={trip.coverImage}
-          alt={getLocaleField(trip, 'title', params.locale)}
+          alt={getLocaleField(trip, 'title', locale)}
           fill
           className="object-cover"
           priority
@@ -161,7 +162,7 @@ export default async function TripDetailPage({
               ← {tCommon('back')}
             </Link>
             <h1 className="text-4xl md:text-5xl font-bold mb-2">
-              {getLocaleField(trip, 'title', params.locale)}
+              {getLocaleField(trip, 'title', locale)}
             </h1>
             <p className="text-lg opacity-90">{trip.subtitle}</p>
           </div>
@@ -175,7 +176,7 @@ export default async function TripDetailPage({
             <span className="text-2xl">{trip.emotion?.icon || '✨'}</span>
             <div>
               <div className="text-gray-500 text-xs">{t('emotion')}</div>
-              <div className="font-medium">{getLocaleField(trip.emotion || { name: '', nameCn: '', nameEn: '', nameJp: '' }, 'name', params.locale)}</div>
+              <div className="font-medium">{getLocaleField(trip.emotion || { name: '', nameCn: '', nameEn: '', nameJp: '' }, 'name', locale)}</div>
             </div>
           </div>
           <div>
@@ -184,7 +185,7 @@ export default async function TripDetailPage({
           </div>
           <div>
             <div className="text-gray-500 text-xs">{t('destination')}</div>
-            <div className="font-medium">{getLocaleField(trip.destination, 'name', params.locale)}</div>
+            <div className="font-medium">{getLocaleField(trip.destination, 'name', locale)}</div>
           </div>
           {trip.priceFrom && (
             <div>
@@ -203,7 +204,7 @@ export default async function TripDetailPage({
             <h2 className="text-2xl font-bold mb-4">{t('overview')}</h2>
             <div
               className="prose max-w-none"
-              dangerouslySetInnerHTML={{ __html: getLocaleField(trip, 'description', params.locale) }}
+              dangerouslySetInnerHTML={{ __html: getLocaleField(trip, 'description', locale) }}
             />
           </section>
 
@@ -221,14 +222,14 @@ export default async function TripDetailPage({
                     </div>
                     <div className="flex-1 pb-8 border-b border-gray-100 last:border-0">
                       <h3 className="text-xl font-semibold mb-2">
-                        {getLocaleField(day, 'title', params.locale)}
+                        {getLocaleField(day, 'title', locale)}
                       </h3>
                       <p className="text-gray-600 mb-3">
-                        {getLocaleField(day, 'description', params.locale)}
+                        {getLocaleField(day, 'description', locale)}
                       </p>
                       {day.activitiesCn && (
                         <div className="flex flex-wrap gap-2">
-                          {(getLocaleField(day, 'activities', params.locale) || []).map((a: string, i: number) => (
+                          {(getLocaleField(day, 'activities', locale) || []).map((a: string, i: number) => (
                             <span key={i} className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm">
                               {a}
                             </span>
@@ -272,7 +273,7 @@ export default async function TripDetailPage({
         {/* Sidebar - Inquiry Form */}
         <div className="lg:col-span-1">
           <div className="sticky top-8">
-            <InquiryForm tripSlug={trip.slug} tripTitle={getLocaleField(trip, 'title', params.locale)} />
+            <InquiryForm tripSlug={trip.slug} tripTitle={getLocaleField(trip, 'title', locale)} />
           </div>
         </div>
       </div>
@@ -290,7 +291,7 @@ export default async function TripDetailPage({
                       <Image src={rt.coverImage} alt={rt.titleCn} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
                     </div>
                     <div className="p-4">
-                      <h3 className="font-semibold mb-1">{getLocaleField(rt, 'title', params.locale)}</h3>
+                      <h3 className="font-semibold mb-1">{getLocaleField(rt, 'title', locale)}</h3>
                       <p className="text-sm text-gray-500">{rt.duration}{t('days')} · {rt.nights}{t('nights')}</p>
                     </div>
                   </div>

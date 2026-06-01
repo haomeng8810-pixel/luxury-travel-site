@@ -98,10 +98,10 @@ function getLocaleField(obj: any, field: string, locale: string): string {
 // 故事/文章详情页
 // ============================================
 
-export default async function StoryDetailPage({ params }: { params: { slug: string; locale: string } }) {
+export default async function StoryDetailPage({ params }: { params: Promise<{ slug: string; locale: string }> }) {
   const t = await getTranslations('stories');
-  const locale = params.locale;
-  const article = ARTICLES[params.slug];
+  const { locale, slug } = await params;
+  const article = ARTICLES[slug];
   if (!article) notFound();
 
   const title = getLocaleField(article, 'title', locale);
