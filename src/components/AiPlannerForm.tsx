@@ -47,6 +47,7 @@ export default function AiPlannerForm() {
     notes: '',
   });
   const [result, setResult] = useState<any>(null);
+  const [error, setError] = useState<string>('');
 
   const updateField = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -63,16 +64,28 @@ export default function AiPlannerForm() {
 
   const handleSubmit = async () => {
     setLoading(true);
+    setError('');
     try {
       const response = await fetch('/api/ai/itinerary', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
+      
+      if (!response.ok) {
+        throw new Error(`请求失败 (${response.status})`);
+      }
+      
       const data = await response.json();
+      
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      
       setResult(data);
-    } catch (error) {
-      console.error('AI itinerary generation failed:', error);
+    } catch (err: any) {
+      console.error('AI itinerary generation failed:', err);
+      setError(err.message || '生成失败，请重试');
     } finally {
       setLoading(false);
     }
@@ -161,6 +174,14 @@ export default function AiPlannerForm() {
       </div>
 
       <div className="p-8">
+        {/* Error Display */}
+        {error && (
+          <div className="mb-6 bg-red-50 border border-red-200 rounded-xl p-4 text-red-700">
+            <p className="font-bold">⚠️ {error}</p>
+            <p className="text-sm mt-2">请检查网络连接或稍后重试</p>
+          </div>
+        )}
+
         {/* Step 1: Destination & Duration */}
         {step === 1 && (
           <div>
