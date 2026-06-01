@@ -8,19 +8,27 @@ export const dynamic = 'force-dynamic';
 // ============================================
 
 export async function POST(request: NextRequest) {
+  let body;
   try {
-    const body = await request.json();
-    const { destination, duration, budget, travelerType, travelers, interests, notes } = body;
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: '请求格式错误' }, { status: 400 });
+  }
 
-    // 检查 API Key
-    const apiKey = process.env.DASHSCOPE_API_KEY;
-    if (!apiKey) {
-      // 返回演示数据
-      return NextResponse.json(getDemoItinerary(body));
-    }
+  const { destination, duration, budget, travelerType, travelers, interests, notes } = body;
 
+  // 检查 API Key
+  const apiKey = process.env.DASHSCOPE_API_KEY;
+  if (!apiKey) {
+    console.log('DASHSCOPE_API_KEY not set, returning demo data');
+    return NextResponse.json(getDemoItinerary(body));
+  }
+
+  try {
     // 构建提示词
     const prompt = buildItineraryPrompt(body);
+
+    console.log('Calling DashScope API...');
 
     // 调用通义千问 API
     const response = await fetch('https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', {
@@ -40,16 +48,30 @@ export async function POST(request: NextRequest) {
       }),
     });
 
+    console.log('DashScope response status:', response.status);
+
+    if (!response.ok) {
+      const errorData = await response.text();
+      console.error('DashScope API error:', errorData);
+      // 如果 API 调用失败，返回演示数据
+      return NextResponse.json(getDemoItinerary(body));
+    }
+
     const data = await response.json();
-    const itinerary = JSON.parse(data.choices[0].message.content);
+    
+    if (!data.choices || !data.choices[0] || !data.choices[0].message) {
+      console.error('Invalid DashScope response:', JSON.stringify(data));
+      return NextResponse.json(getDemoItinerary(body));
+    }
+
+    const content = data.choices[0].message.content;
+    const itinerary = JSON.parse(content);
 
     return NextResponse.json(itinerary);
   } catch (error) {
     console.error('AI itinerary generation error:', error);
-    return NextResponse.json(
-      { error: '行程生成失败', fallback: getDemoItinerary(await request.json()) },
-      { status: 500 }
-    );
+    // 出错时返回演示数据
+    return NextResponse.json(getDemoItinerary(body));
   }
 }
 
