@@ -1,6 +1,6 @@
 const createI18nPlugin = require('next-intl/plugin');
 
-const withI18n = createI18nPlugin('./i18n.ts');
+const withI18n = createI18nPlugin('./src/i18n/request.ts');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
