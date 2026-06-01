@@ -283,7 +283,7 @@ export default async function TripDetailPage({
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-2xl font-bold mb-8">{t('relatedTrips')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {relatedTrips.map((rt) => (
+              {relatedTrips.map((rt: any) => (
                 <Link key={rt.id} href={`/trips/${rt.slug}`} className="group">
                   <div className="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow">
                     <div className="relative h-48">
