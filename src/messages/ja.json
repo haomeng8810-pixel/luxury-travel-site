@@ -10,10 +10,6 @@
     "aiPlanner": "AI旅程プランナー",
     "switchLanguage": "言語切替"
   },
-  "aiPlanner": {
-    "title": "AI 旅程プランナー",
-    "description": "旅の好みをお知らせください。AI が数秒で個別の旅程を生成します"
-  },
   "home": {
     "hero": {
       "preTitle": "高級カスタム旅行",
