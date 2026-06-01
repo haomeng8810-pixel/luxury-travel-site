@@ -10,6 +10,10 @@
     "aiPlanner": "AI 行程规划",
     "switchLanguage": "切换语言"
   },
+  "aiPlanner": {
+    "title": "AI 智能行程规划",
+    "description": "告诉我们您的旅行需求，AI 将在几秒钟内生成专属行程"
+  },
   "home": {
     "hero": {
       "preTitle": "高端定制旅行",

@@ -10,6 +10,10 @@
     "aiPlanner": "AI Trip Planner",
     "switchLanguage": "Switch Language"
   },
+  "aiPlanner": {
+    "title": "AI Travel Planner",
+    "description": "Tell us your travel preferences, and AI will generate a personalized itinerary in seconds"
+  },
   "home": {
     "hero": {
       "preTitle": "Luxury Custom Travel",
