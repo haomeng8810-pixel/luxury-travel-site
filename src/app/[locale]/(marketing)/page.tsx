@@ -153,14 +153,21 @@ async function getLatestStories() {
 // ============================================
 
 export default async function HomePage() {
-  const [trips, destinations, emotions, testimonials, stories] =
-    await Promise.all([
-      getFeaturedTrips(),
-      getDestinations(),
-      getEmotions(),
-      getTestimonials(),
-      getLatestStories(),
-    ]);
+  let trips: any[] = [], destinations: any[] = [], emotions: any[] = [], testimonials: any[] = [], stories: any = { articles: [], podcasts: [] };
+  
+  try {
+    [trips, destinations, emotions, testimonials, stories] =
+      await Promise.all([
+        getFeaturedTrips(),
+        getDestinations(),
+        getEmotions(),
+        getTestimonials(),
+        getLatestStories(),
+      ]);
+  } catch (error) {
+    console.error('Database connection error:', error);
+    // Return empty data - site will still render without DB content
+  }
 
   return (
     <main className="min-h-screen">
