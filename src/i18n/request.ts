@@ -1,24 +1,30 @@
 import { getRequestConfig } from 'next-intl/server';
 import { routing } from './routing';
 
-async function getMessages(locale: string) {
-  // 加载主翻译文件
-  const mainMessages = (await import(`../messages/${locale}.json`)).default;
+// 主翻译文件
+import zhMain from '../messages/zh.json';
+import enMain from '../messages/en.json';
+import jaMain from '../messages/ja.json';
 
-  // 加载命名空间目录下的翻译文件
-  let namespaceMessages: Record<string, any> = {};
-  try {
-    const namespaceFiles = ['aiPlanner'];
-    for (const ns of namespaceFiles) {
-      const module = await import(`../messages/${locale}/${ns}.json`);
-      namespaceMessages[ns] = module.default;
-    }
-  } catch {
-    // 如果命名空间文件不存在，跳过
-  }
+// 命名空间翻译文件
+import zhAiPlanner from '../messages/zh/aiPlanner.json';
+import enAiPlanner from '../messages/en/aiPlanner.json';
+import jaAiPlanner from '../messages/ja/aiPlanner.json';
 
-  return { ...mainMessages, ...namespaceMessages };
-}
+const messagesMap: Record<string, any> = {
+  zh: {
+    ...zhMain,
+    aiPlanner: zhAiPlanner,
+  },
+  en: {
+    ...enMain,
+    aiPlanner: enAiPlanner,
+  },
+  ja: {
+    ...jaMain,
+    aiPlanner: jaAiPlanner,
+  },
+};
 
 export default getRequestConfig(async ({ requestLocale }) => {
   let locale = await requestLocale;
@@ -33,6 +39,6 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
   return {
     locale,
-    messages: await getMessages(locale),
+    messages: messagesMap[locale],
   };
 });
