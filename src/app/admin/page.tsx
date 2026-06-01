@@ -4,23 +4,33 @@ import { prisma } from '@/lib/prisma';
 export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboard() {
-  const [tripCount, destinationCount, inquiryCount, reviewCount, newInquiries, bookedInquiries, statsByStatus] = await Promise.all([
+  const [
+    tripCount, destinationCount, inquiryCount, reviewCount, articleCount, expertCount, podcastCount, emotionCount,
+    newInquiries, bookedInquiries, statsByStatus,
+    featuredTrips, activeDestinations, publishedArticles, availableExperts, publishedPodcasts
+  ] = await Promise.all([
     prisma.trip.count(),
     prisma.destination.count(),
     prisma.inquiry.count(),
     prisma.review.count(),
+    prisma.article.count(),
+    prisma.travelExpert.count(),
+    prisma.podcast.count(),
+    prisma.emotion.count(),
     prisma.inquiry.count({ where: { status: 'NEW' } }),
     prisma.inquiry.count({ where: { status: 'BOOKED' } }),
     prisma.inquiry.groupBy({ by: ['status'], _count: true }),
+    prisma.trip.count({ where: { isFeatured: true } }),
+    prisma.destination.count({ where: { isActive: true } }),
+    prisma.article.count({ where: { isPublished: true } }),
+    prisma.travelExpert.count({ where: { isAvailable: true } }),
+    prisma.podcast.count({ where: { isPublished: true } }),
   ]);
 
   const recentInquiries = await prisma.inquiry.findMany({
     orderBy: { createdAt: 'desc' },
     take: 10,
   });
-
-  const featuredTrips = await prisma.trip.count({ where: { isFeatured: true } });
-  const activeDestinations = await prisma.destination.count({ where: { isActive: true } });
 
   const statusLabels: Record<string, string> = {
     NEW: '新咨询',
@@ -47,14 +57,15 @@ export default async function AdminDashboard() {
       <h1 className="text-3xl font-bold text-gray-900 mb-8">管理后台</h1>
 
       {/* 核心统计 */}
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-8">
-        <StatCard title="行程" value={tripCount} icon="🗺️" color="bg-blue-500" />
-        <StatCard title="推荐行程" value={featuredTrips} icon="⭐" color="bg-yellow-500" />
-        <StatCard title="目的地" value={destinationCount} icon="📍" color="bg-green-500" />
-        <StatCard title="咨询总数" value={inquiryCount} icon="📧" color="bg-purple-500" />
-        <StatCard title="新咨询" value={newInquiries} icon="🔔" color="bg-red-500" alert={newInquiries > 0} />
-        <StatCard title="已预订" value={bookedInquiries} icon="✅" color="bg-emerald-500" />
-        <StatCard title="评价" value={reviewCount} icon="💬" color="bg-indigo-500" />
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-8">
+        <StatCard title="行程" value={tripCount} sub={featuredTrips > 0 ? `${featuredTrips}推荐` : undefined} icon="🗺️" color="bg-blue-500" />
+        <StatCard title="目的地" value={destinationCount} sub={activeDestinations > 0 ? `${activeDestinations}活跃` : undefined} icon="📍" color="bg-green-500" />
+        <StatCard title="文章" value={articleCount} sub={publishedArticles > 0 ? `${publishedArticles}已发布` : undefined} icon="📝" color="bg-orange-500" />
+        <StatCard title="旅行专家" value={expertCount} sub={availableExperts > 0 ? `${availableExperts}可接单` : undefined} icon="👤" color="bg-indigo-500" />
+        <StatCard title="评价" value={reviewCount} icon="⭐" color="bg-pink-500" />
+        <StatCard title="播客" value={podcastCount} sub={publishedPodcasts > 0 ? `${publishedPodcasts}已发布` : undefined} icon="🎙️" color="bg-purple-500" />
+        <StatCard title="咨询" value={inquiryCount} sub={newInquiries > 0 ? `${newInquiries}新咨询` : undefined} icon="📩" color="bg-red-500" alert={newInquiries > 0} />
+        <StatCard title="情感标签" value={emotionCount} icon="💭" color="bg-teal-500" />
       </div>
 
       {/* 咨询状态分布 */}
@@ -117,46 +128,66 @@ export default async function AdminDashboard() {
       </div>
 
       {/* 快捷操作 */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-4">行程管理</h2>
-          <div className="space-y-2">
-            <Link href="/admin/trips/new" className="block text-sm text-blue-600 hover:underline">+ 新增行程</Link>
-            <Link href="/admin/trips" className="block text-sm text-gray-600 hover:underline">管理所有行程</Link>
-          </div>
-        </div>
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-4">目的地管理</h2>
-          <div className="space-y-2">
-            <Link href="/admin/destinations/new" className="block text-sm text-blue-600 hover:underline">+ 新增目的地</Link>
-            <Link href="/admin/destinations" className="block text-sm text-gray-600 hover:underline">管理所有目的地</Link>
-          </div>
-        </div>
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-4">咨询管理</h2>
-          <div className="space-y-2">
-            <Link href="/admin/inquiries?status=NEW" className="block text-sm text-red-600 hover:underline">处理新咨询 ({newInquiries})</Link>
-            <Link href="/admin/inquiries" className="block text-sm text-gray-600 hover:underline">查看所有咨询</Link>
-          </div>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <QuickActionCard title="行程管理" icon="🗺️" actions={[
+          { label: '+ 新增行程', href: '/admin/trips/new', primary: true },
+          { label: '管理所有行程', href: '/admin/trips' },
+        ]} />
+        <QuickActionCard title="内容管理" icon="📝" actions={[
+          { label: '+ 新建文章', href: '/admin/articles/new', primary: true },
+          { label: '管理文章', href: '/admin/articles' },
+          { label: '管理播客', href: '/admin/podcasts' },
+        ]} />
+        <QuickActionCard title="团队管理" icon="👤" actions={[
+          { label: '+ 新增专家', href: '/admin/experts/new', primary: true },
+          { label: '管理专家', href: '/admin/experts' },
+          { label: '情感标签', href: '/admin/emotions' },
+        ]} />
+        <QuickActionCard title="客户管理" icon="📩" actions={[
+          { label: `处理新咨询 (${newInquiries})`, href: '/admin/inquiries?status=NEW', primary: newInquiries > 0 },
+          { label: '所有咨询', href: '/admin/inquiries' },
+          { label: '评价管理', href: '/admin/reviews' },
+        ]} />
       </div>
     </div>
   );
 }
 
-function StatCard({ title, value, icon, color, alert }: { title: string; value: number; icon: string; color: string; alert?: boolean }) {
+function StatCard({ title, value, sub, icon, color, alert }: { title: string; value: number; sub?: string; icon: string; color: string; alert?: boolean }) {
   return (
     <div className={`bg-white rounded-lg shadow-sm p-4 relative ${alert ? 'ring-2 ring-red-200' : ''}`}>
       <div className="flex items-center justify-between">
         <div>
           <p className="text-3xl font-bold">{value}</p>
           <p className="text-sm text-gray-500 mt-1">{title}</p>
+          {sub && <p className="text-xs text-gray-400 mt-0.5">{sub}</p>}
         </div>
         <span className="text-2xl">{icon}</span>
       </div>
       {alert && (
         <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
       )}
+    </div>
+  );
+}
+
+function QuickActionCard({ title, icon, actions }: { title: string; icon: string; actions: { label: string; href: string; primary?: boolean }[] }) {
+  return (
+    <div className="bg-white rounded-lg shadow-sm p-6">
+      <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+        <span>{icon}</span> {title}
+      </h2>
+      <div className="space-y-2">
+        {actions.map((action) => (
+          <Link
+            key={action.href}
+            href={action.href}
+            className={`block text-sm ${action.primary ? 'text-blue-600 font-medium hover:underline' : 'text-gray-600 hover:text-gray-900'}`}
+          >
+            {action.label}
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }
