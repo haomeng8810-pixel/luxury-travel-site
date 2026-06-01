@@ -1,6 +1,9 @@
-import { PrismaClient } from '@prisma/client';
+import "dotenv/config";
+import { PrismaClient } from './generated/client.js';
+import { PrismaPg } from '@prisma/adapter-pg';
 
-const prisma = new PrismaClient();
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
+const prisma = new PrismaClient({ adapter });
 
 // ============================================
 // 种子数据 - APPLE TRAVEL 苹果旅行

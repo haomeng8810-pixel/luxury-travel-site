@@ -23,7 +23,12 @@
     ],
     "strictNullChecks": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@/generated/*": [
+        "./src/database/generated/*"
+      ]
     }
   },
   "include": [
