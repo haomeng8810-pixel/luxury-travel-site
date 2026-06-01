@@ -35,15 +35,22 @@ export async function POST(request: NextRequest) {
 
     console.log('Calling DashScope API...');
 
+    // 使用环境变量配置的 URL 和模型
+    const baseUrl = (process.env.DASHSCOPE_BASE_URL || 'https://dashscope.aliyuncs.com/compatible-mode/v1').replace(/\/$/, '');
+    const model = process.env.DASHSCOPE_MODEL || 'qwen-max';
+
+    console.log('Base URL:', baseUrl);
+    console.log('Model:', model);
+
     // 调用通义千问 API
-    const response = await fetch('https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', {
+    const response = await fetch(`${baseUrl}/chat/completions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'qwen-max',
+        model: model,
         messages: [
           { role: 'system', content: 'You are a professional luxury travel planner. Generate detailed, personalized itineraries in JSON format.' },
           { role: 'user', content: prompt },
