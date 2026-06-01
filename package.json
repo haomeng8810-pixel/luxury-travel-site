@@ -2,7 +2,7 @@
   "name": "luxury-travel-site",
   "version": "0.1.0",
   "private": true,
-  "description": "高端定制旅行网站 - 对标 Black Tomato",
+  "description": "\u9ad8\u7aef\u5b9a\u5236\u65c5\u884c\u7f51\u7ad9 - \u5bf9\u6807 Black Tomato",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
-    "@prisma/client": "latest",
+    "@prisma/client": "5.22.0",
     "clsx": "^2.1.0",
     "framer-motion": "^11.2.0",
     "next": "^14.2.0",
@@ -27,8 +27,7 @@
     "react-dom": "^18.3.0",
     "react-hook-form": "^7.76.1",
     "tailwind-merge": "^2.3.0",
-    "zod": "^3.25.76",
-    "@prisma/adapter-pg": "latest"
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@types/node": "^20.12.0",
@@ -38,11 +37,10 @@
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.0",
     "postcss": "^8.4.0",
-    "prisma": "latest",
+    "prisma": "5.22.0",
     "tailwindcss": "^3.4.0",
     "tsx": "^4.0.0",
     "typescript": "^5.4.0",
     "dotenv": "^16.4.0"
-  },
-  "type": "module"
+  }
 }

@@ -1,4 +1,4 @@
-import createI18nPlugin from 'next-intl/plugin';
+const createI18nPlugin = require('next-intl/plugin');
 
 const withI18n = createI18nPlugin('./src/i18n/request.ts');
 
@@ -29,4 +29,4 @@ const nextConfig = {
   allowedDevOrigins: ['192.168.31.8', 'localhost'],
 };
 
-export default withI18n(nextConfig);
+module.exports = withI18n(nextConfig);

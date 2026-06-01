@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 
 export const dynamic = 'force-dynamic';
-import { Prisma } from '../../../database/generated/client.js';
+import { Prisma } from '@prisma/client';
 
 // ============================================
 // Admin Destinations - List with Search & Filter
