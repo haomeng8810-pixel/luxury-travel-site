@@ -17,12 +17,17 @@ export async function POST(request: NextRequest) {
 
   const { destination, duration, budget, travelerType, travelers, interests, notes } = body;
 
-  // 检查 API Key
-  const apiKey = process.env.DASHSCOPE_API_KEY;
+  // 检查 API Key（去除可能的引号）
+  let apiKey = process.env.DASHSCOPE_API_KEY || '';
+  // 移除首尾引号（兼容 .env 格式）
+  apiKey = apiKey.replace(/^["']|["']$/g, '').trim();
+  
   if (!apiKey) {
     console.log('DASHSCOPE_API_KEY not set, returning demo data');
     return NextResponse.json(getDemoItinerary(body));
   }
+  
+  console.log('DASHSCOPE_API_KEY found, length:', apiKey.length);
 
   try {
     // 构建提示词
