@@ -460,73 +460,6 @@ model AiChatMessage {
 }
 
 // ============================================
-// AI 功能模块
-// ============================================
-
-/// AI 生成的行程规划
-model AiItinerary {
-  id              String   @id @default(cuid())
-  sessionId       String   @unique                     // 会话 ID
-  
-  // 用户输入
-  destination     String                               // 目标目的地
-  duration        Int                                  // 天数
-  travelers       Int      @default(1)                 // 出行人数
-  budget          String?                              // 预算范围
-  travelerType    String?                              // 类型：Couple / Family / Solo / Friends
-  interests       String                            // 兴趣标签（JSON 数组）
-  specialNotes    String?                              // 特殊需求
-  
-  // AI 输出
-  title           String                               // 生成的行程标题
-  titleCn         String                               // 中文标题
-  summary         String                       // 行程概述
-  dailyPlan       String                             // 每日行程（JSON）
-  estimatedCost   String?                              // 预估费用
-  tips            String                            // 旅行贴士（JSON）
-  
-  // 关联
-  convertedToInquiry Boolean @default(false)
-  inquiryId       String?
-  
-  createdAt       DateTime @default(now())
-  
-  @@index([sessionId])
-  @@index([createdAt])
-  @@map("ai_itineraries")
-}
-
-/// AI 客服对话
-model AiChat {
-  id              String   @id @default(cuid())
-  sessionId       String                               // 会话 ID
-  
-  messages        AiChatMessage[]
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  
-  @@index([sessionId])
-  @@map("ai_chats")
-}
-
-/// AI 客服消息
-model AiChatMessage {
-  id              String   @id @default(cuid())
-  chatId          String
-  chat            AiChat   @relation(fields: [chatId], references: [id], onDelete: Cascade)
-  
-  role            ChatRole                              // user / assistant
-  content         String                       // 消息内容
-  context         String?                      // 附加上下文（如推荐的行程 ID）
-  
-  createdAt       DateTime @default(now())
-  
-  @@index([chatId])
-  @@map("ai_chat_messages")
-}
-
-// ============================================
 // 枚举定义
 // ============================================
 
@@ -556,34 +489,4 @@ enum ArticleType {
 enum ChatRole {
   user
   assistant
-}
-
-enum ChatRole {
-  user          // 用户消息
-  assistant     // AI 回复
-}
-
-enum ChatRole {
-  user
-  assistant
-}
-
-enum ChatRole {
-  user
-  assistant
-}
-
-enum ChatRole {
-  user          // 用户消息
-  assistant     // AI 回复
-}
-
-enum ChatRole {
-  user          // 用户消息
-  assistant     // AI 回复
-}
-
-enum ChatRole {
-  user          // 用户消息
-  assistant     // AI 回复
 }
