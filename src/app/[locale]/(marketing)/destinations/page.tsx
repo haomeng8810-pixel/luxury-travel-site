@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 // ============================================
 // 目的地列表页 - Server Component
 // 从数据库读取目的地数据

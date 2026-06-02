@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 // ============================================
 // 高端定制旅行网站 - 首页组件
 // 数据源：Supabase PostgreSQL (Prisma)
